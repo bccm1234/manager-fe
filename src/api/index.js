@@ -10,14 +10,6 @@ export default {
       data: params,
     });
   },
-  getMenuList(params) {
-    // return request({
-    //     url: '/menu/list',
-    //     method: 'get',
-    //     data: params,
-    //     mock: false
-    // })
-  },
   getPermissionList() {
     return request({
       url: "/users/getPermissionList",

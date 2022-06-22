@@ -154,7 +154,7 @@ export default {
         ],
       },
       // 权限展示
-      showPermission: false,
+      showPermission: true,
       curRoleId: "",
       curRoleName: "",
       menuList: [],
@@ -183,7 +183,7 @@ export default {
     // 菜单列表初始化
     async getMenuList() {
       try {
-        const list = await this.$api.getMenuList();
+        const list = await this.$api.getPermissionList();
         this.menuList = list;
         this.getActionMap(list);
       } catch (e) {
@@ -231,7 +231,9 @@ export default {
           const res = await this.$api.roleOperate(params);
           if (res) {
             this.showModal = false;
-            this.$message.success("创建成功");
+            this.$message.success(
+              (action == "create" ? "创建" : "修改") + "成功"
+            );
             this.handleReset("dialogForm");
             this.getRoleList();
           }
