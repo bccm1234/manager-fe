@@ -25,32 +25,6 @@ const routes = [
     ],
   },
   {
-    name: "system",
-    path: "/system",
-    meta: {
-      title: "系统管理",
-    },
-    component: Home,
-    children: [
-      {
-        name: "role",
-        path: "/system/role",
-        meta: {
-          title: "权限管理",
-        },
-        component: () => import("@/views/Role.vue"),
-      },
-      {
-        name: "user",
-        path: "/system/user",
-        meta: {
-          title: "用户管理",
-        },
-        component: () => import("@/views/User.vue"),
-      },
-    ],
-  },
-  {
     name: "login",
     path: "/login",
     meta: {
@@ -79,13 +53,13 @@ const router = createRouter({
  */
 async function loadAsyncRoutes() {
   const userInfo = storage.getItem("userInfo") || {};
+  const modules = import.meta.glob("./../views/*.vue"); // vite 特有的动态导入方法
   if (userInfo.token) {
     try {
       const { menuList } = await API.getPermissionList();
       const routes = utils.generateRoute(menuList);
       routes.map((route) => {
         const url = `./../views/${route.component}.vue`;
-        // route.component = () => import(url);
         route.component = modules[url];
         router.addRoute("home", route);
       });
