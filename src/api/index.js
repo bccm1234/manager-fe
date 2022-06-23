@@ -18,11 +18,27 @@ export default {
       mock: false,
     });
   },
-  getRoleAllList() {
+  getUserList(params) {
     return request({
-      url: "/roles/allList",
+      url: "/users/list",
       method: "get",
-      data: {},
+      data: params,
+      mock: false,
+    });
+  },
+  userOperate(params) {
+    return request({
+      url: "/users/operate",
+      method: "post",
+      data: params,
+      mock: false,
+    });
+  },
+  userDelete(params) {
+    return request({
+      url: "/users/delete",
+      method: "post",
+      data: params,
       mock: false,
     });
   },
@@ -30,14 +46,6 @@ export default {
     return request({
       url: "/roles/list",
       method: "get",
-      data: params,
-      mock: false,
-    });
-  },
-  userSubmit(params) {
-    return request({
-      url: "/users/operate",
-      method: "post",
       data: params,
       mock: false,
     });

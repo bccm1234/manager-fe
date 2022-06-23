@@ -25,10 +25,13 @@
           :formatter="item.formatter"
         >
         </el-table-column>
-        <el-table-column label="操作" width="260">
+        <el-table-column label="操作" width="360">
           <template #default="scope">
             <el-button size="mini" @click="handleEdit(scope.row)"
-              >编辑</el-button
+              >修改名称</el-button
+            >
+            <el-button size="mini" @click="handlePermission(scope.row)"
+              >修改权限</el-button
             >
             <el-button
               type="danger"
@@ -48,7 +51,7 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <el-dialog title="用户新增" v-model="showModal">
+    <el-dialog title="角色信息" v-model="showModal">
       <el-form
         ref="dialogForm"
         :model="roleForm"
@@ -149,12 +152,12 @@ export default {
         roleName: [
           {
             required: true,
-            message: "请输入角色角色名称",
+            message: "请输入角色名称",
           },
         ],
       },
       // 权限展示
-      showPermission: true,
+      showPermission: false,
       curRoleId: "",
       curRoleName: "",
       menuList: [],
@@ -162,9 +165,14 @@ export default {
       actionMap: {},
     };
   },
+  computed: {
+    dialogFormtitle() {
+      return "用户" + this.action;
+    },
+  },
   mounted() {
     this.getRoleList();
-    // this.getMenuList();
+    this.getMenuList();
   },
   methods: {
     // 角色列表初始化
@@ -183,7 +191,7 @@ export default {
     // 菜单列表初始化
     async getMenuList() {
       try {
-        const list = await this.$api.getPermissionList();
+        const { menuList: list } = await this.$api.getPermissionList();
         this.menuList = list;
         this.getActionMap(list);
       } catch (e) {
@@ -240,6 +248,11 @@ export default {
         }
       });
     },
+    handlePermission(row) {
+      this.showPermission = true;
+      this.curRoleId = row._id;
+      this.curRoleName = row.roleName;
+    },
     handleCurrentChange(current) {
       this.pager.pageNum = current;
       this.getRoleList();
@@ -251,9 +264,9 @@ export default {
       const parentKeys = [];
       nodes.map((node) => {
         if (!node.children) {
-          checkedKeys.push(node._id);
+          checkedKeys.push(node.id);
         } else {
-          parentKeys.push(node._id);
+          parentKeys.push(node.id);
         }
       });
       const params = {
