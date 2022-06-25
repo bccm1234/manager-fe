@@ -88,4 +88,11 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+router.beforeEach(async (to, from, next) => {
+  if (from.name == "login") {
+    await loadAsyncRoutes();
+    next();
+  } else next();
+});
+
 export default router;
