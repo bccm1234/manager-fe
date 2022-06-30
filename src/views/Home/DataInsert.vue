@@ -73,6 +73,21 @@
         <el-button @click="resetForm"> Reset </el-button>
       </div>
     </div>
+    <el-upload
+      :file-list="fileList"
+      class="fileupload"
+      action="/api/data/file"
+      multiple
+      :headers="gethead"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
+      :before-remove="beforeRemove"
+    >
+      <el-button type="primary">上传文件</el-button>
+      <template #tip>
+        <div class="el-upload__tip"></div>
+      </template>
+    </el-upload>
   </div>
 </template>
 
@@ -182,7 +197,15 @@ export default {
           },
         ],
       },
+      fileList: [],
     };
+  },
+  computed: {
+    gethead() {
+      return {
+        Authorization: "Bearer " + (this.$store.state.userInfo.token || ""),
+      };
+    },
   },
   methods: {
     async submitForm() {
@@ -196,6 +219,15 @@ export default {
     },
     resetForm() {
       this.$refs.insertForm.resetFields();
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
   },
 };
@@ -214,5 +246,8 @@ export default {
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
+}
+.fileupload :deep(.el-upload-list__item) {
+  width: 400px;
 }
 </style>
