@@ -3,6 +3,13 @@
  */
 import request from "./../utils/request";
 export default {
+  submitDataForm(params) {
+    return request({
+      url: "/data/submit",
+      method: "post",
+      data: params,
+    });
+  },
   login(params) {
     return request({
       url: "/users/login",

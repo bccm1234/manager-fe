@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "@/components/Home.vue";
+import Home from "@/views/Home.vue";
 import storage from "./../utils/storage";
 import API from "./../api";
 import utils from "./../utils/utils";
@@ -20,7 +20,7 @@ const routes = [
         meta: {
           title: "welcome",
         },
-        component: () => import("@/views/welcome.vue"),
+        component: () => import("@/views/Home/welcome.vue"),
       },
     ],
   },
@@ -53,13 +53,13 @@ const router = createRouter({
  */
 async function loadAsyncRoutes() {
   const userInfo = storage.getItem("userInfo") || {};
-  const modules = import.meta.glob("./../views/*.vue"); // vite 特有的动态导入方法
+  const modules = import.meta.glob("./../views/Home/*.vue"); // vite 特有的动态导入方法
   if (userInfo.token) {
     try {
       const { menuList } = await API.getPermissionList();
       const routes = utils.generateRoute(menuList);
       routes.map((route) => {
-        const url = `./../views/${route.component}.vue`;
+        const url = `./../views/Home/${route.component}.vue`;
         route.component = modules[url];
         router.addRoute("home", route);
       });
