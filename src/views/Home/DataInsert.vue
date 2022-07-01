@@ -73,21 +73,37 @@
         <el-button @click="resetForm"> Reset </el-button>
       </div>
     </div>
-    <el-upload
-      :file-list="fileList"
-      class="fileupload"
-      action="/api/data/file"
-      multiple
-      :headers="gethead"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :before-remove="beforeRemove"
-    >
-      <el-button type="primary">上传文件</el-button>
-      <template #tip>
-        <div class="el-upload__tip"></div>
+    <div class="btn">
+      <el-upload
+        :file-list="fileList"
+        class="fileupload"
+        action="/api/data/file"
+        multiple
+        :headers="gethead"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+      >
+        <el-button type="primary">上传文件</el-button>
+        <template #tip>
+          <div class="el-upload__tip"></div>
+        </template>
+      </el-upload>
+      <el-button type="primary" @click="writeJSON">写入文件</el-button>
+    </div>
+    <el-dialog title="JSON文件" v-model="showJSON">
+      <el-form ref="jsonfile" :model="jsonForm" label-width="100px">
+        <el-form-item label="json文件" prop="json">
+          <el-input type="textarea" v-model="jsonForm.json" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取 消</el-button>
+          <el-button type="primary" @click="handleSubmit">确 定</el-button>
+        </span>
       </template>
-    </el-upload>
+    </el-dialog>
   </div>
 </template>
 
@@ -198,6 +214,10 @@ export default {
         ],
       },
       fileList: [],
+      showJSON: false,
+      jsonForm: {
+        json: "",
+      },
     };
   },
   computed: {
@@ -229,6 +249,22 @@ export default {
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
+    writeJSON() {
+      this.showJSON = true;
+    },
+    handleClose() {
+      this.$refs.jsonfile.resetFields();
+      this.showJSON = false;
+    },
+    async handleSubmit() {
+      const params = JSON.parse(this.jsonForm.json);
+      try {
+        await this.$api.submitDataForm(params);
+      } catch (e) {
+        throw new Error(e);
+      }
+      this.showJSON = false;
+    },
   },
 };
 </script>
@@ -245,9 +281,13 @@ export default {
 .btn {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   padding-bottom: 10px;
 }
-.fileupload :deep(.el-upload-list__item) {
-  width: 400px;
+.fileupload {
+  margin-right: 100px;
+  :deep(.el-upload-list__item) {
+    width: 400px;
+  }
 }
 </style>
