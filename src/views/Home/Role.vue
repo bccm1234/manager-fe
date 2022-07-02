@@ -88,7 +88,7 @@
             ref="tree"
             :data="menuList"
             show-checkbox
-            node-key="_id"
+            node-key="id"
             default-expand-all
             :props="{ label: 'menuName' }"
           >
@@ -259,7 +259,7 @@ export default {
     },
     async handlePermissionSubmit() {
       const nodes = this.$refs.tree.getCheckedNodes();
-      // const halfKeys = this.$refs.tree.getHalfCheckedKeys();
+      const halfKeys = this.$refs.tree.getHalfCheckedKeys();
       const checkedKeys = [];
       const parentKeys = [];
       nodes.map((node) => {
@@ -272,9 +272,8 @@ export default {
       const params = {
         _id: this.curRoleId,
         permissionList: {
-          checkedKeys,
-          // halfCheckedKeys: parentKeys.concat(halfKeys),
-          halfCheckedKeys: parentKeys,
+          checkedKeys: checkedKeys.concat(parentKeys),
+          halfCheckedKeys: halfKeys,
         },
       };
       await this.$api.updatePermission(params);
