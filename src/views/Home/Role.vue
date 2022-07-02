@@ -259,11 +259,11 @@ export default {
     },
     async handlePermissionSubmit() {
       const nodes = this.$refs.tree.getCheckedNodes();
-      const halfKeys = this.$refs.tree.getHalfCheckedKeys();
+      // const halfKeys = this.$refs.tree.getHalfCheckedKeys();
       const checkedKeys = [];
       const parentKeys = [];
       nodes.map((node) => {
-        if (!node.children) {
+        if (node.children.length != 0) {
           checkedKeys.push(node.id);
         } else {
           parentKeys.push(node.id);
@@ -273,7 +273,8 @@ export default {
         _id: this.curRoleId,
         permissionList: {
           checkedKeys,
-          halfCheckedKeys: parentKeys.concat(halfKeys),
+          // halfCheckedKeys: parentKeys.concat(halfKeys),
+          halfCheckedKeys: parentKeys,
         },
       };
       await this.$api.updatePermission(params);
@@ -287,7 +288,7 @@ export default {
         while (arr.length) {
           const item = arr.pop();
           if (item.children && item.action) {
-            actionMap[item._id] = item.menuName;
+            actionMap[item.id] = item.menuName;
           }
           if (item.children && !item.action) {
             deep(item.children);

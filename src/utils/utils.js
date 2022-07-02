@@ -31,7 +31,7 @@ export default {
     const deepList = (list) => {
       while (list.length) {
         const item = list.pop();
-        if (item.action) {
+        if (item.action.length != 0) {
           routes.push({
             name: item.component,
             path: item.path,
@@ -41,7 +41,7 @@ export default {
             component: item.component,
           });
         }
-        if (item.children && !item.action) {
+        if (item.children.length != 0 && item.action.length == 0) {
           deepList(item.children);
         }
       }
