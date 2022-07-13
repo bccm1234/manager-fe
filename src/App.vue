@@ -11,4 +11,7 @@ export default {
 <style lang="scss">
 @import "./assets/style/reset.css";
 @import "./assets/style/index.scss";
+#app {
+  user-select: none;
+}
 </style>

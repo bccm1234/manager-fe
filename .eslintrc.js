@@ -16,6 +16,7 @@ module.exports = {
   plugins: ["vue"],
   rules: {
     "vue/multi-word-component-names": 0,
+    "vue/no-v-model-argument": "off",
     "prettier/prettier": [
       "error",
       {

@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import TreeMenu from "@/components/TreeMenu.vue";
-import BreadCrumb from "@/components/BreadCrumb.vue";
+import TreeMenu from "@/components/Home/TreeMenu.vue";
+import BreadCrumb from "@/components/Home/BreadCrumb.vue";
 export default {
   name: "Home",
   components: { TreeMenu, BreadCrumb },

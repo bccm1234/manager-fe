@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "@/views/Home.vue";
 import storage from "./../utils/storage";
 import API from "./../api";
 import utils from "./../utils/utils";
@@ -11,7 +10,7 @@ const routes = [
     meta: {
       title: "首页",
     },
-    component: Home,
+    component: () => import("@/views/Home.vue"),
     redirect: "/welcome",
     children: [
       {
@@ -39,6 +38,25 @@ const routes = [
       title: "页面不存在",
     },
     component: () => import("@/views/404.vue"),
+  },
+  {
+    name: "apps",
+    path: "/apps",
+    meta: {
+      title: "数据库",
+    },
+    component: () => import("@/views/apps.vue"),
+    redirect: "/apps/materials/index",
+    children: [
+      {
+        name: "materials-index",
+        path: "materials/index",
+        meta: {
+          title: "材料数据库首页",
+        },
+        component: () => import("@/views/Apps/materials/index.vue"),
+      },
+    ],
   },
 ];
 const router = createRouter({
