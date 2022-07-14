@@ -4,13 +4,14 @@
       class="input"
       v-model="input"
       placeholder="Please input"
+      @input="judgeinput"
       clearable
     >
       <template #prepend>
         <el-button>Filters</el-button>
       </template>
       <template #append>
-        <el-button>Search</el-button>
+        <el-button :disabled="!isabled">Search</el-button>
       </template>
     </el-input>
   </div>
@@ -22,7 +23,64 @@ export default {
   data() {
     return {
       input: "",
+      isabled: false,
     };
+  },
+  computed: {},
+  methods: {
+    judgeinput() {
+      let ElementList = [];
+      const inputeleList = this.sliceinput(this.input);
+      [this.isabled, ElementList] = this.judgeinputeleList(inputeleList);
+      this.$store.commit("materials/saveInput", ElementList);
+    },
+    sliceinput(forminput) {
+      let elelist = [];
+      if (forminput.includes("-")) {
+        elelist = forminput.split("-");
+      } else if (forminput.includes(",")) {
+        elelist = forminput.split(",");
+      } else {
+        let startindex = "";
+        let endindex = "";
+        for (let i = 0; i < forminput.length; i++) {
+          if (forminput[i].match(/[A-Z*]/)) {
+            startindex = endindex;
+            endindex = i;
+            if (endindex != 0 && startindex === "") {
+              // 捕捉436Cu2Zn3中的436
+              elelist.push(forminput.slice(0, endindex));
+            }
+            if (parseFloat(startindex).toString() !== "NaN") {
+              // 捕捉436Cu2Zn3中的Cu2
+              elelist.push(forminput.slice(startindex, endindex));
+            }
+          }
+        }
+        // 捕捉436Cu2Zn3中的Zn3
+        elelist.push(forminput.slice(endindex, forminput.length));
+      }
+      return elelist;
+    },
+    judgeinputeleList(list) {
+      const state = [];
+      const List = [];
+      list.forEach((x) => {
+        x.match(/[^\(\)A-Za-z0-9,*-]/) ? state.push(false) : state.push(true); // 判断是否含非法字符
+        const newx = x.replaceAll(/[^A-Za-z*]/g, "");
+        if (
+          !Object.keys(this.$store.state.materials.isActive).includes(newx) && // 判断是否含非法元素
+          newx !== "" &&
+          newx !== "*"
+        )
+          state.push(false);
+        else {
+          state.push(true);
+          if (newx !== "") List.push(newx);
+        }
+      });
+      return [List.length > 0 ? state.every((x) => x == true) : false, List];
+    },
   },
 };
 </script>
@@ -102,5 +160,11 @@ export default {
     letter-spacing: 0em;
     color: #ffffff;
   }
+}
+.el-button.is-disabled,
+.el-button.is-disabled:focus,
+.el-button.is-disabled:hover {
+  background-color: inherit;
+  border: none;
 }
 </style>

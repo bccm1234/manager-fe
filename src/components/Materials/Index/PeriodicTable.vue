@@ -990,7 +990,7 @@ export default {
   name: "PeriodicTable",
   computed: {
     isActive() {
-      return true;
+      return this.$store.state.materials.isActive;
     },
   },
   methods: {
