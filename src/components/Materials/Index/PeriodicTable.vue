@@ -158,6 +158,20 @@
       </div>
       <div class="column">
         <div
+          class="base-element column-element color-*"
+          @click="searchElement"
+          :class="{ active: isActive['del'] }"
+        >
+          Del
+        </div>
+        <div
+          class="base-element column-element color-*"
+          @click="searchElement"
+          :class="{ active: isActive['-'] }"
+        >
+          -
+        </div>
+        <div
           class="base-element column-element color-3"
           @click="searchElement"
           :class="{ active: isActive.V }"
@@ -989,12 +1003,34 @@
 export default {
   name: "PeriodicTable",
   computed: {
+    lightList() {
+      return JSON.parse(JSON.stringify(this.$store.state.materials.InputList));
+    },
     isActive() {
       return this.$store.state.materials.isActive;
     },
   },
   methods: {
-    searchElement(event) {},
+    searchElement(event) {
+      const ele = event.currentTarget.innerHTML.trim();
+      if (this.$store.state.materials.isActive[ele] === false) {
+        this.$store.commit("materials/addElement", ele);
+      } else if (this.$store.state.materials.isActive[ele] === true) {
+        this.$store.commit("materials/delElement", ele);
+      } else if (ele == "Del") {
+        this.$store.commit("materials/delInput");
+      } else {
+        this.$store.commit("materials/addInput", ele);
+      }
+    },
+  },
+  watch: {
+    lightList(newVal) {
+      this.$store.commit("materials/clearLight");
+      newVal.forEach((ele) => {
+        this.$store.commit("materials/lightElement", ele);
+      });
+    },
   },
 };
 </script>

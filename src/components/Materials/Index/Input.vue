@@ -26,9 +26,20 @@ export default {
       isabled: false,
     };
   },
-  computed: {},
+  computed: {
+    vuex_Input() {
+      return this.$store.state.materials.Input;
+    },
+  },
+  watch: {
+    vuex_Input(newVal) {
+      this.input = newVal;
+      this.judgeinput();
+    },
+  },
   methods: {
     judgeinput() {
+      this.$store.commit("materials/save", this.input);
       let ElementList = [];
       const inputeleList = this.sliceinput(this.input);
       [this.isabled, ElementList] = this.judgeinputeleList(inputeleList);
@@ -67,11 +78,10 @@ export default {
       const List = [];
       list.forEach((x) => {
         x.match(/[^\(\)A-Za-z0-9,*-]/) ? state.push(false) : state.push(true); // 判断是否含非法字符
-        const newx = x.replaceAll(/[^A-Za-z*]/g, "");
+        const newx = x.replaceAll(/[^A-Za-z]/g, "");
         if (
           !Object.keys(this.$store.state.materials.isActive).includes(newx) && // 判断是否含非法元素
-          newx !== "" &&
-          newx !== "*"
+          newx !== ""
         )
           state.push(false);
         else {

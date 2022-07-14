@@ -310,4 +310,7 @@ export default {
   color: #131414;
   margin: 0px 20px 8px;
 }
+.el-button + .el-button {
+  margin-left: 0px;
+}
 </style>

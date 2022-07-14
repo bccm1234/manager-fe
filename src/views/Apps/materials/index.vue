@@ -30,6 +30,8 @@ export default {
 }
 .el-container {
   background: #e9ebe9;
+  width: 1300px;
+  margin: 0 auto;
 }
 .el-aside {
   top: 50px;
@@ -39,7 +41,6 @@ export default {
   border-radius: 5px;
   background: #ffffff;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  margin-left: 220px;
   margin-top: 50px;
   margin-bottom: 50px;
 }
@@ -47,7 +48,6 @@ export default {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-  margin-right: 220px;
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 20px 30px;
