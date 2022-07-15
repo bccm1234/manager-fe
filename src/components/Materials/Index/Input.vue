@@ -104,7 +104,7 @@ export default {
       window.scrollTo(0, el.offsetTop + 10);
     },
     commitSearch() {
-      console.log("tijiaole");
+      this.$store.commit("materials/commitSearch");
     },
   },
 };

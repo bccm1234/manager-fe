@@ -1,3 +1,4 @@
+import api from "../../api";
 const materials = {
   namespaced: true,
   state: {
@@ -124,6 +125,7 @@ const materials = {
       Lr: false,
     },
     InputParams: "",
+    List: [],
   },
   mutations: {
     save(state, Element) {
@@ -273,6 +275,12 @@ const materials = {
     },
     changeInputParams(state, params) {
       state.InputParams = params;
+    },
+    async commitSearch(state) {
+      let params = { Input: state.Input };
+      params = Object.assign(params, state.InputParams);
+      const { List: List } = await api.findMaterialsAbstracts(params);
+      state.List = List;
     },
   },
 };

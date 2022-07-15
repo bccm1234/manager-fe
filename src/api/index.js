@@ -3,6 +3,13 @@
  */
 import request from "./../utils/request";
 export default {
+  findMaterialsAbstracts(params) {
+    return request({
+      url: "/materials/findAbstracts",
+      method: "get",
+      data: params,
+    });
+  },
   submitDataForm(params) {
     return request({
       url: "/data/submit",

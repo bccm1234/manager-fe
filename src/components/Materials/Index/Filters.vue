@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-form ref="form" :model="form">
+    <el-form ref="filterform" :model="form">
       <div class="title">
         <span class="Filters">Filters</span>
         <el-button class="Reset" @click="ResetForm">Reset</el-button>
-        <el-button class="Go">Go!</el-button>
+        <el-button class="Go" @click="commitSearch">Go!</el-button>
       </div>
-      <el-collapse v-model="activeNames" @change="handleChange">
+      <el-collapse v-model="activeNames">
         <el-collapse-item name="model-type">
           <template #title>
             <div>
@@ -14,12 +14,8 @@
               <span>Model Type</span>
             </div>
           </template>
-          <el-form-item prop="modelType">
-            <el-select
-              v-model="form.modelType"
-              placeholder="请选择"
-              size="large"
-            >
+          <el-form-item prop="model">
+            <el-select v-model="form.model" placeholder="请选择" size="large">
               <el-option
                 v-for="item in modelOptions"
                 :key="item.value"
@@ -74,9 +70,9 @@
             ></el-input>
           </el-form-item>
           <div class="formItemTitle">Termination</div>
-          <el-form-item prop="surfaceTermination">
+          <el-form-item prop="termination">
             <el-select
-              v-model="form.surfaceTermination"
+              v-model="form.termination"
               placeholder="请选择"
               size="large"
             >
@@ -99,11 +95,11 @@ export default {
   data() {
     return {
       form: {
-        modelType: "",
+        model: "",
         crystalSystem: "",
         spaceGroup: "",
         millerIndice: "",
-        surfaceTermination: "",
+        termination: "",
       },
       modelOptions: [
         {
@@ -163,10 +159,10 @@ export default {
     form: {
       handler(newVal) {
         const formCopy = JSON.parse(JSON.stringify(this.form));
-        switch (newVal.modelType) {
+        switch (newVal.model) {
           case "Bulk":
             formCopy.millerIndice = "";
-            formCopy.surfaceTermination = "";
+            formCopy.termination = "";
             this.$store.commit("materials/changeInputParams", formCopy);
             break;
           case "Slab/Surface":
@@ -184,7 +180,10 @@ export default {
   },
   methods: {
     ResetForm() {
-      this.$refs.form.resetFields();
+      this.$refs.filterform.resetFields();
+    },
+    commitSearch() {
+      this.$store.commit("materials/commitSearch");
     },
   },
 };

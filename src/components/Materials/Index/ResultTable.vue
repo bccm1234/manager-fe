@@ -3,21 +3,21 @@
     <div class="resultTableTitle">
       <div class="titleText">
         There are
-        <bold>{{ total + " records" }}</bold>
+        <b>{{ total + " records" }}</b>
         to display
       </div>
     </div>
-    <el-table :data="List" style="margin: 10px auto 0" border>
-      <el-table-column label="Id" prop="Id" sortable></el-table-column>>
+    <el-table :data="tableList" style="margin: 10px auto 0" border>
+      <el-table-column label="Id" prop="id" sortable></el-table-column>>
       <el-table-column
         v-for="item in selectedColumns"
         :prop="item"
         :key="item"
         :label="item"
-        :width="flexColumnWidth(List, item, item, 47)"
+        :width="flexColumnWidth(tableList, item, item, 47)"
         sortable="true"
       >
-        <template slotScope="scope">
+        <template #default="scope">
           <div v-html="scope.row[item]"></div>
         </template>
       </el-table-column>
@@ -28,6 +28,7 @@
         v-model:page-size="pageSize"
         layout="sizes, prev, pager, next, jumper"
         :total="total"
+        :page-sizes="[5, 10, 15, 20]"
       >
       </el-pagination>
     </div>
@@ -40,22 +41,29 @@ export default {
   name: "ResultTable",
   data() {
     return {
-      List: [],
       selectedColumns: [
-        "Model Type",
-        "Formula",
+        "model",
+        "substance",
         "Crystal System",
         "Space Group",
-        "Miller Indices",
-        "Termination",
+        "miller",
+        "termination",
       ],
       currentPage: 1,
       pageSize: 10,
     };
   },
   computed: {
+    tableList: function () {
+      const list = this.$store.state.materials.List;
+      const resultList = [];
+      list.forEach(function (data) {
+        resultList.push(data.abs);
+      });
+      return resultList;
+    },
     total: function () {
-      return 36;
+      return this.tableList.length;
     },
   },
   methods: {
@@ -88,7 +96,7 @@ export default {
     line-height: 36px;
     letter-spacing: 0px;
     color: #131414;
-    bold {
+    b {
       font-weight: 700;
     }
   }
