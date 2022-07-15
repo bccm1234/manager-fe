@@ -123,6 +123,7 @@ const materials = {
       No: false,
       Lr: false,
     },
+    InputParams: "",
   },
   mutations: {
     save(state, Element) {
@@ -269,6 +270,9 @@ const materials = {
     },
     delInput(state) {
       state.Input = state.Input.substring(0, state.Input.length - 1);
+    },
+    changeInputParams(state, params) {
+      state.InputParams = params;
     },
   },
 };

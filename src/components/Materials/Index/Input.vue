@@ -8,10 +8,17 @@
       clearable
     >
       <template #prepend>
-        <el-button>Filters</el-button>
+        <el-button @click="jumpToFilters">Filters</el-button>
       </template>
       <template #append>
-        <el-button :disabled="!isabled">Search</el-button>
+        <el-button
+          :disabled="!isabled"
+          @click="
+            commitSearch();
+            jumpToFilters();
+          "
+          >Search</el-button
+        >
       </template>
     </el-input>
   </div>
@@ -90,6 +97,14 @@ export default {
         }
       });
       return [List.length > 0 ? state.every((x) => x == true) : false, List];
+    },
+
+    jumpToFilters() {
+      const el = document.querySelector(".el-container");
+      window.scrollTo(0, el.offsetTop + 10);
+    },
+    commitSearch() {
+      console.log("tijiaole");
     },
   },
 };

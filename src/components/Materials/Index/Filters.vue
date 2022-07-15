@@ -159,6 +159,29 @@ export default {
       activeNames: ["model-type", "symmetry", "surface"],
     };
   },
+  watch: {
+    form: {
+      handler(newVal) {
+        const formCopy = JSON.parse(JSON.stringify(this.form));
+        switch (newVal.modelType) {
+          case "Bulk":
+            formCopy.millerIndice = "";
+            formCopy.surfaceTermination = "";
+            this.$store.commit("materials/changeInputParams", formCopy);
+            break;
+          case "Slab/Surface":
+            formCopy.crystalSystem = "";
+            formCopy.spaceGroup = "";
+            this.$store.commit("materials/changeInputParams", formCopy);
+            break;
+          default:
+            this.$store.commit("materials/changeInputParams", formCopy);
+            break;
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     ResetForm() {
       this.$refs.form.resetFields();

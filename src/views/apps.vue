@@ -33,6 +33,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/app.scss";
 .content {
-  margin-top: 140px;
+  margin-top: 110px;
 }
 </style>
