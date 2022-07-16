@@ -1,15 +1,19 @@
 <template>
-  <div id="m-index">
-    <SearchInput />
-    <PeriodicTable />
-    <el-container>
-      <el-aside width="350px">
-        <Filters />
-      </el-aside>
-      <el-main>
-        <ResultTable />
-      </el-main>
-    </el-container>
+  <div>
+    <div id="index-color1">
+      <SearchInput />
+      <PeriodicTable />
+    </div>
+    <div id="index-color2">
+      <el-container>
+        <el-aside width="350px">
+          <Filters />
+        </el-aside>
+        <el-main>
+          <ResultTable />
+        </el-main>
+      </el-container>
+    </div>
   </div>
 </template>
 
@@ -25,11 +29,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#m-index {
+#index-color1 {
   background: rgba(185, 192, 185, 0.25);
+  padding-bottom: 40px;
+}
+#index-color2 {
+  background-color: #e9ebe9;
+  padding-top: 20px;
 }
 .el-container {
-  background: #e9ebe9;
   width: 1300px;
   margin: 0 auto;
 }
@@ -40,19 +48,17 @@ export default {
   padding: 10px;
   border-radius: 5px;
   background: #ffffff;
+  margin-bottom: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  margin-top: 50px;
-  margin-bottom: 50px;
 }
 .el-main {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-  margin-top: 50px;
-  margin-bottom: 50px;
   padding: 20px 30px;
   border-radius: 5px;
   background: #ffffff;
+  margin-bottom: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

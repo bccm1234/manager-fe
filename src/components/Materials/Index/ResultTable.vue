@@ -7,25 +7,36 @@
         to display
       </div>
     </div>
-    <el-table :data="tableList" style="margin: 10px auto 0" border>
-      <el-table-column label="Id" prop="id" sortable></el-table-column>>
+    <el-table
+      :data="tableList"
+      style="margin: 10px auto 0"
+      @sort-change="sortChange"
+      border
+    >
+      <el-table-column label="Id" prop="id" sortable="custom">
+      </el-table-column>
       <el-table-column
         v-for="item in selectedColumns"
-        :prop="item"
-        :key="item"
-        :label="item"
-        :width="flexColumnWidth(tableList, item, item, 47)"
-        sortable="true"
+        :prop="item.prop"
+        :key="item.label"
+        :label="item.label"
+        :width="flexColumnWidth(tableList, item.label, item.prop, 47)"
+        sortable="custom"
       >
+        <template #header="scope">
+          <span v-html="scope.column.label"></span>
+        </template>
         <template #default="scope">
-          <div v-html="scope.row[item]"></div>
+          <div v-html="scope.row[item.prop]"></div>
         </template>
       </el-table-column>
     </el-table>
     <div class="resultTablePagination">
       <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
+        v-model:currentPage="currentPage"
+        @update:currentPage="currentPageChange"
+        v-model:pageSize="pageSize"
+        @update:pageSize="pageSizeChange"
         layout="sizes, prev, pager, next, jumper"
         :total="total"
         :page-sizes="[5, 10, 15, 20]"
@@ -42,15 +53,16 @@ export default {
   data() {
     return {
       selectedColumns: [
-        "model",
-        "substance",
-        "Crystal System",
-        "Space Group",
-        "miller",
-        "termination",
+        { prop: "model", label: "Model Type" },
+        { prop: "substance", label: "Formula" },
+        { prop: "crystalSystem", label: "Crystal System" },
+        { prop: "spaceGroup", label: "Space Group" },
+        { prop: "miller", label: "Miller Indices" },
+        { prop: "termination", label: "Termination" },
       ],
       currentPage: 1,
       pageSize: 10,
+      sortList: [],
     };
   },
   computed: {
@@ -63,12 +75,32 @@ export default {
       return resultList;
     },
     total: function () {
-      return this.tableList.length;
+      return this.$store.state.materials.total;
     },
   },
   methods: {
     flexColumnWidth(List, label, prop, number) {
       return utils.flexColumnWidth(List, label, prop, number);
+    },
+    currentPageChange() {
+      const page = {};
+      page.pageSize = this.pageSize;
+      page.pageNum = this.currentPage;
+      this.$store.commit("materials/changePage", page);
+      this.$store.commit("materials/commitSearch");
+    },
+    pageSizeChange() {
+      this.currentPageChange();
+    },
+    sortChange({ column, order }) {
+      this.sortList = [1, 1, 1, 1, 1, 1, 1];
+      if (order == "ascending") {
+        this.sortList[column.no] = 1;
+      } else if (order == "descending") {
+        this.sortList[column.no] = -1;
+      }
+      this.$store.commit("materials/changeSort", this.sortList);
+      this.$store.commit("materials/commitSearch");
     },
   },
 };

@@ -115,7 +115,7 @@ export default {
   text-align: center;
 }
 ::v-deep(.input) {
-  margin-top: 50px;
+  margin-top: 40px;
   width: 960px;
   height: 60px;
 }

@@ -126,6 +126,9 @@ const materials = {
     },
     InputParams: "",
     List: [],
+    total: null,
+    page: "",
+    sort: "",
   },
   mutations: {
     save(state, Element) {
@@ -276,11 +279,21 @@ const materials = {
     changeInputParams(state, params) {
       state.InputParams = params;
     },
+    changePage(state, page) {
+      state.page = page;
+    },
+    changeSort(state, sortList) {
+      const sort = { sort: sortList };
+      state.sort = sort;
+    },
     async commitSearch(state) {
       let params = { Input: state.Input };
-      params = Object.assign(params, state.InputParams);
-      const { List: List } = await api.findMaterialsAbstracts(params);
+      params = Object.assign(params, state.InputParams, state.page, state.sort);
+      const { List: List, page: page } = await api.findMaterialsAbstracts(
+        params
+      );
       state.List = List;
+      state.total = page.total;
     },
   },
 };

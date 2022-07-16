@@ -194,11 +194,11 @@ export default {
   left: 0px;
   top: 0px;
   width: 330px;
-  height: 64px;
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 10px;
+  padding: 20px 10px;
   align-self: stretch;
   background: #ffffff;
   .Filters {
@@ -214,9 +214,10 @@ export default {
     color: #131414;
   }
   .Reset {
-    left: 0px;
+    position: relative;
+    left: 20px;
     top: 0px;
-    width: 95px;
+    width: 83px;
     height: 32px;
     display: flex;
     justify-content: center;
@@ -227,7 +228,7 @@ export default {
     box-sizing: border-box;
     border: 1px solid #c7c9cc;
     span {
-      left: 16px;
+      left: 10px;
       top: 4px;
       width: 63px;
       height: 24px;
@@ -240,9 +241,9 @@ export default {
     }
   }
   .Go {
-    left: 105px;
+    left: 93px;
     top: 0px;
-    width: 73px;
+    width: 61px;
     height: 32px;
     display: flex;
     justify-content: center;
@@ -253,7 +254,7 @@ export default {
     box-sizing: border-box;
     border: 1px solid #c7c9cc;
     span {
-      left: 16px;
+      left: 10px;
       top: 4px;
       width: 41px;
       height: 24px;
@@ -271,7 +272,7 @@ export default {
   left: 0px;
   top: 0px;
   width: 330px;
-  height: 78px;
+  height: 44px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -306,6 +307,9 @@ export default {
   width: 290px;
   height: 40px;
   margin: 0px 20px;
+}
+::v-deep(.el-collapse-item__content) {
+  padding: 10px 0px;
 }
 ::v-deep(.el-form-item__content > .el-input) {
   position: static;

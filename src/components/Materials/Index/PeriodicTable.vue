@@ -1041,7 +1041,7 @@ export default {
   justify-content: center;
   align-items: flex-end;
   width: 60rem;
-  margin: 2rem auto 1rem;
+  margin: 40px auto 1rem;
 }
 
 .element-bottom {
