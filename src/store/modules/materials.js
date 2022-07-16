@@ -283,7 +283,7 @@ const materials = {
       state.page = page;
     },
     changeSort(state, sortList) {
-      const sort = { sort: sortList };
+      const sort = { sort: JSON.stringify(sortList) };
       state.sort = sort;
     },
     async commitSearch(state) {
