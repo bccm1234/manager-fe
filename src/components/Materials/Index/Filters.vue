@@ -108,6 +108,9 @@ export default {
         {
           value: "Slab/Surface",
         },
+        {
+          value: "Both",
+        },
       ],
       crystalSystemOptions: [
         {
@@ -159,23 +162,35 @@ export default {
     form: {
       handler(newVal) {
         const formCopy = JSON.parse(JSON.stringify(this.form));
+        const isBulk = newVal.crystalSystem || newVal.spaceGroup;
+        const isSurface = newVal.millerIndice || newVal.termination;
         switch (newVal.model) {
           case "Bulk":
-            formCopy.millerIndice = "";
-            formCopy.termination = "";
-            this.$store.commit("materials/changeInputParams", formCopy);
+            this.form.millerIndice = "";
+            this.form.termination = "";
             break;
           case "Slab/Surface":
-            formCopy.crystalSystem = "";
-            formCopy.spaceGroup = "";
-            this.$store.commit("materials/changeInputParams", formCopy);
+            this.form.crystalSystem = "";
+            this.form.spaceGroup = "";
             break;
           default:
-            this.$store.commit("materials/changeInputParams", formCopy);
             break;
         }
+        if (isBulk) {
+          if (isSurface) {
+            formCopy.model = "Both";
+          } else {
+            formCopy.model = "Bulk";
+          }
+        } else {
+          if (isSurface) {
+            formCopy.model = "Slab/Surface";
+          }
+        }
+        this.$store.commit("materials/changeInputParams", formCopy);
       },
       deep: true,
+      immediate: true,
     },
   },
   methods: {

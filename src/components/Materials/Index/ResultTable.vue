@@ -62,7 +62,7 @@ export default {
       ],
       currentPage: 1,
       pageSize: 10,
-      sortList: [],
+      sortParams: {},
     };
   },
   computed: {
@@ -93,13 +93,13 @@ export default {
       this.currentPageChange();
     },
     sortChange({ column, order }) {
-      this.sortList = [1, 1, 1, 1, 1, 1, 1];
+      this.sortParams = {};
       if (order == "ascending") {
-        this.sortList[column.no] = 1;
+        this.sortParams[column.property] = 1;
       } else if (order == "descending") {
-        this.sortList[column.no] = -1;
+        this.sortParams[column.property] = -1;
       }
-      this.$store.commit("materials/changeSort", this.sortList);
+      this.$store.commit("materials/changeSort", this.sortParams);
       this.$store.commit("materials/commitSearch");
     },
   },
