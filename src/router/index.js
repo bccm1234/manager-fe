@@ -56,6 +56,14 @@ const routes = [
         },
         component: () => import("@/views/Apps/materials/index.vue"),
       },
+      {
+        name: "materials-details",
+        path: "materials/details",
+        meta: {
+          title: "材料数据库详情页",
+        },
+        component: () => import("@/views/Apps/materials/details.vue"),
+      },
     ],
   },
 ];

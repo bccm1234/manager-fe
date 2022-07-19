@@ -10,6 +10,25 @@ export default {
       data: params,
     });
   },
+  findMaterialsDetails(params) {
+    return request({
+      url: "/materials/findDetails",
+      method: "get",
+      data: params,
+    });
+  },
+  getBandData() {
+    return request({
+      url: "http://localhost:3000/echart/band/band.json",
+      method: "get",
+    });
+  },
+  getDosData() {
+    return request({
+      url: "http://localhost:3000/echart/dos/dos.json",
+      method: "get",
+    });
+  },
   submitDataForm(params) {
     return request({
       url: "/data/submit",
