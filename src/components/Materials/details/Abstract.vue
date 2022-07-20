@@ -1,8 +1,8 @@
 <template>
-  <div class="abstractBox PHTM rightModule" id="0" v-if="infoObj">
+  <div class="abstractBox rightModule" id="0" v-if="infoObj">
     <!-- chemdoodle模型渲染框 -->
     <div class="modelBox">
-      <abstract-model :modelInfo="infoObj"></abstract-model>
+      <abstract-model :modelInfo="infoObj" :key="infoObj.id"></abstract-model>
     </div>
     <!-- 右侧内容 -->
     <div class="baseInfo">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import utils from "@/utils/utils";
 import abstractModel from "@/components/Materials/details/abstract-model.vue";
 import cardInfo from "@/component/cardInfo.vue";
 export default {
@@ -70,8 +71,11 @@ export default {
   },
   watch: {
     // 监听数据变化，调用函数
-    "$store.getters.allInfo"() {
-      this.dealAbstractInfo();
+    infoObj: {
+      handler: function () {
+        this.dealAbstractInfo();
+      },
+      deep: true,
     },
   },
   methods: {
@@ -94,12 +98,12 @@ export default {
       }
       for (let i = 0; i < 3; i++) {
         this.latticeParams.valueList.push(
-          this.assessData(this.infoObj.lattice[i], "Å")
+          utils.assessData(this.infoObj.lattice[i], "Å")
         );
       }
       for (let i = 3; i < 7; i++) {
         this.latticeParams.valueList.push(
-          this.assessData(this.infoObj.lattice[i], "°")
+          utils.assessData(this.infoObj.lattice[i], "°")
         );
       }
     },
@@ -111,6 +115,7 @@ export default {
 .abstractBox {
   width: 860px;
   height: 520px;
+  font-family: PHTM;
 }
 .modelBox {
   position: absolute;

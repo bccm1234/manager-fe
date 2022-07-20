@@ -7,10 +7,10 @@
       class="rightModule"
       >Calculation Summary</card-info
     >
-    <div class="item mb-20">
+    <div class="item mb20" style="width: 740px">
       <span class="itemLeft">More Details:</span>
       <span class="itemRight"
-        ><a :href="paramInfo.calsys.fileurl">{{
+        ><a :href="`http://localhost:3000${paramInfo.calsys.fileurl}`">{{
           paramInfo.calsys.fileurl
         }}</a></span
       >
@@ -22,11 +22,11 @@
       class="rightModule"
       >Band Structure</card-info
     >
-    <band-picture class="mb-20" v-if="paramInfo.bandurl"></band-picture>
+    <band-picture class="mb20" v-if="paramInfo.bandurl"></band-picture>
     <card-info :cssParams="eleCssParams" id="2-3" class="rightModule"
       >Density of states</card-info
     >
-    <dos-picture class="mb-20" v-if="paramInfo.dosurl"></dos-picture>
+    <dos-picture class="mb20" v-if="paramInfo.dosurl"></dos-picture>
     <card-info :cssParams="eleCssParams" id="2-4" class="rightModule"
       >charge Density</card-info
     >

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+// import dosdata from "@/assets/json/dos.json";
 export default {
   name: "dos-picture",
   data() {
@@ -18,9 +19,7 @@ export default {
   methods: {
     async getData() {
       const dosdata = await this.$api.getDosData();
-      console.log(dosdata);
       this.dosdata = dosdata;
-      console.log(dosdata);
       this.setOption();
     },
     setOption() {

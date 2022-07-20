@@ -1,8 +1,8 @@
 <template>
   <div id="2" v-if="infoObj" class="rightModule">
     <div class="moduleTitle">Electronic Structure</div>
-    <div class="body br-10">
-      <div class="mb-20">
+    <div class="body br10">
+      <div class="mb20">
         <div class="title">
           There are {{ Object.keys(infoObj).length }} parameters
         </div>
@@ -10,12 +10,12 @@
           <el-radio-button
             v-for="item in Object.keys(infoObj).length"
             :key="item"
-            label="top"
+            :label="item"
             >parameters{{ item }}</el-radio-button
           >
         </el-radio-group>
         <div class="infoSource" v-if="Object.keys(infoObj).length">
-          数据来源：{{ infoObj.param1.source }}
+          数据来源：{{ infoObj[`param${paramX}`].source }}
         </div>
       </div>
       <ele-info
@@ -99,22 +99,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//动态绑定样式
-.bgc {
-  background: #84b1ff;
-}
-//固定样式
-.bottonItemBand {
-  display: inline-block;
-  width: 150px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 10px 10px 0px 0px;
+:deep(.el-radio-button--small .el-radio-button__inner) {
+  padding: 5px 15px;
   font-size: 18px;
-  text-align: center;
-  cursor: pointer;
-}
-.mainBox {
-  padding: 20px 20px 0;
 }
 </style>

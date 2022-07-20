@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <div class="navBar">
       <img
         src="@/assets/images/material/CO2.png"
@@ -34,5 +34,6 @@ export default {
 @import "@/assets/style/app.scss";
 .content {
   margin-top: 110px;
+  height: 100%;
 }
 </style>

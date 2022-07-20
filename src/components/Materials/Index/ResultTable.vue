@@ -123,7 +123,7 @@ export default {
     left: 35px;
     top: 10px;
     height: 60px;
-    font-family: AlibabaPuHuiTiB;
+    font-family: PHTB;
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0px;
@@ -137,7 +137,7 @@ export default {
   th {
     background-color: #f4f4f5;
     div.cell {
-      font-family: AlibabaPuHuiTiR;
+      font-family: PHTR;
       font-size: 12px;
       font-weight: normal;
       line-height: 16px;
