@@ -75,7 +75,7 @@
       <iframe
         :src="crystalURL"
         scrolling="no"
-        class="modelCanvas br-10"
+        class="modelCanvas br10"
         id="chemIframe"
       ></iframe>
     </div>
@@ -88,7 +88,7 @@
         </li>
       </ul>
       <!-- 下载 -->
-      <span class="downloadBox br-10"
+      <span class="downloadBox br10"
         ><a class="el-icon-download download" :href="downLoadUrl"
           >DownLoad</a
         ></span
@@ -117,20 +117,16 @@ export default {
   props: {
     modelInfo: Object,
   },
-  watch: {
-    // 监听数据变化，调用函数
-    "$store.getters.allInfo"() {
-      this.getColorList();
-      this.dealUrl();
-    },
+  mounted() {
+    this.getColorList();
+    this.dealUrl();
   },
   methods: {
     // 动态拼接下载链接
     dealUrl() {
       // console.log(this.infoObj.id);
       this.crystalURL = `http://localhost:3000/html/chemdoodle/chemdoodle.html?${this.modelInfo.id}`;
-      this.downLoadUrl =
-        "http://localhost:3000/cif/" + this.modelInfo.id + ".cif";
+      this.downLoadUrl = `http://localhost:3000${this.modelInfo.cifurl}`;
     },
     // 设置扩胞侧边栏开关
     changeState() {
@@ -220,6 +216,7 @@ export default {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 .el-menu {
   border: none;
@@ -319,5 +316,6 @@ export default {
   height: 420px;
   border: none;
   background: #ecf5ff;
+  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

@@ -71,10 +71,7 @@ export default {
       const scrolly =
         document.getElementById(id).getBoundingClientRect().top +
         document.documentElement.scrollTop;
-      console.log(document.getElementById(id));
-      console.log(scrolly);
-      console.log(document.getElementById(id).getBoundingClientRect());
-      window.scrollTo(0, scrolly - 150);
+      window.scrollTo(0, scrolly - 200);
     },
     changeColor(event) {
       const menuItems = document.getElementsByClassName("menuItem");
@@ -102,6 +99,7 @@ export default {
   top: -20px;
   left: 50%;
   width: 320px;
+  height: 100%;
   margin-left: -615px;
   text-align: left;
 }
@@ -133,7 +131,6 @@ export default {
 }
 .leftNav {
   font-family: "PHTM";
-  height: 45px;
   line-height: 45px;
   font-size: 18px;
   text-align: left;

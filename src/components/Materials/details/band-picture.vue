@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import bandData from "@/assets/json/band.json";
+// import bandData from "@/assets/json/band.json";
 export default {
   name: "band-picture",
   data() {
@@ -17,9 +17,9 @@ export default {
     this.getData();
   },
   methods: {
-    getData() {
-      // const banddata = await this.$api.getBandData();
-      const banddata = bandData;
+    async getData() {
+      const banddata = await this.$api.getBandData();
+      // const banddata = bandData;
       this.banddata = banddata;
       this.setOption();
     },
