@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import ElementPlus from "element-plus";
+import * as echarts from "echarts";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "element-plus/lib/theme-chalk/index.css";
 import request from "./utils/request";
@@ -27,6 +28,7 @@ app.directive("has", {
 app.config.globalProperties.$request = request;
 app.config.globalProperties.$api = api;
 app.config.globalProperties.$storage = storage;
+app.config.globalProperties.$echarts = echarts;
 app.config.devtools = true;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
