@@ -50,7 +50,7 @@ export default {
     // 获取并处理数据
     async fetchData() {
       const idNumber = window.location.hash;
-      const hashId = idNumber.substring(25, idNumber.length);
+      const hashId = idNumber.substring(28, idNumber.length);
       const res = await this.$api.findMaterialsDetails({
         id: hashId,
       });

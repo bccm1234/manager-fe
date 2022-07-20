@@ -104,7 +104,10 @@ export default {
       this.$store.commit("materials/commitSearch");
     },
     detailedinformation(row) {
-      this.$router.push({ name: "materials-detail", query: { id: row.id } });
+      this.$router.push({
+        path: "/apps/materials/details",
+        query: { id: row.id },
+      });
     },
   },
 };
