@@ -11,6 +11,7 @@
       :data="tableList"
       style="margin: 10px auto 0"
       @sort-change="sortChange"
+      @row-click="detailedinformation"
       border
     >
       <el-table-column label="Id" prop="id" sortable="custom">
@@ -101,6 +102,9 @@ export default {
       }
       this.$store.commit("materials/changeSort", this.sortParams);
       this.$store.commit("materials/commitSearch");
+    },
+    detailedinformation(row) {
+      this.$router.push({ name: "materials-detail", query: { id: row.id } });
     },
   },
 };
