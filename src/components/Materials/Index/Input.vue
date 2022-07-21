@@ -132,7 +132,7 @@ export default {
   border-width: 2px 0px 2px 0px;
   border-style: solid;
   border-color: #131414;
-  font-family: AlibabaPuHuiTiM;
+  font-family: PHTM;
   font-size: 24px;
   font-weight: 500;
   letter-spacing: 0em;
@@ -153,7 +153,7 @@ export default {
     top: 0px;
     width: 130px;
     height: 60px;
-    font-family: AlibabaPuHuiTiM;
+    font-family: PHTM;
     font-size: 24px;
     font-weight: 500;
     line-height: 24px;
@@ -178,7 +178,7 @@ export default {
     top: 0px;
     width: 139px;
     height: 60px;
-    font-family: AlibabaPuHuiTiM;
+    font-family: PHTM;
     font-size: 24px;
     font-weight: 500;
     line-height: 36px;

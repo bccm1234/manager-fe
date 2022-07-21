@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="chargeBox">
-      <div class="chargeTop PHTM">
+      <div class="chargeTop">
         <!-- 模型设置表单 -->
         <div class="chargeSetBox">
           <el-menu
@@ -63,7 +63,10 @@
                     />
                   </td>
                   <td class="colorBox">
-                    <el-color-picker v-model="colorNegative"></el-color-picker>
+                    <el-color-picker
+                      v-model="colorNegative"
+                      size=""
+                    ></el-color-picker>
                   </td>
                 </tr>
                 <tr style="font-size: 22px">
@@ -177,7 +180,7 @@
           </li>
         </ul>
         <!-- 下载 -->
-        <span class="downloadBox br-10"
+        <span class="downloadBox br10"
           ><a class="el-icon-download download" :href="downLoadUrl"
             >DownLoad</a
           ></span
@@ -193,11 +196,10 @@ export default {
   name: "charge-calucation",
   props: {
     atomList: Array,
+    fileUrl: String,
   },
   data() {
     return {
-      // charge组件数据
-      charge: {},
       // 表单相关内容
       isCollapse: true,
       isPositive: false,
@@ -209,8 +211,6 @@ export default {
       colorNegative: "#78fbfd",
       spinAxis: "z",
       isbody: false,
-      // 表单内容对象
-      chargeConfig: {},
       chargeURL: "",
       // 原子颜色列表/下载链接
       colorList: [],
@@ -218,19 +218,16 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted");
     this.fetchData();
   },
   methods: {
     // 获取页面hash值传给3dmol
     fetchData() {
-      const idNumber = window.location.hash;
-      const hashId = idNumber.substring(25, idNumber.length);
-      this.chargeURL = "http://localhost:3000/html/3dmol/3Dmol.html?" + hashId;
+      this.chargeURL = `http://localhost:3000/html/3dmol/3Dmol.html?${this.fileUrl}`;
       for (let i = 0; i < this.atomList.length; i++) {
         this.colorList.push(colorJson[this.atomList[i]]);
       }
-      this.downLoadUrl = `http://localhost:3000/cube/${hashId}.zip`;
+      this.downLoadUrl = `http://localhost:3000${this.fileUrl}`;
     },
     // 限制positive输入0-1内的四位小数
     checkNumP() {
@@ -268,11 +265,9 @@ export default {
       if (num >= 1) {
         num = 1;
       }
-      // console.log("numafter", num);
       if (numStr !== "") {
         numStr = "-" + num;
       }
-      // console.log("numStrafter", numStr);
       value = numStr;
       document.getElementById("inputN").value = value;
     },
@@ -292,7 +287,7 @@ export default {
       }, 340);
     },
     // 发送表单内容到html页面
-    sentToChargeIframe() {
+    sentToChargeIframe(refresh = false) {
       const chargeIframe = document.getElementById("chargeIframe");
       const isovalPositive = this.isPositive
         ? document.getElementById("inputP").value
@@ -318,8 +313,7 @@ export default {
         : 0;
       const translate = [moveX, moveY];
       const spinSpeed = this.isSpin ? 1 : 0;
-      this.chargeConfig = {
-        isRefresh: false,
+      const chargeConfig = {
         isovalPositive,
         isovalNegative,
         isoPositiveColor,
@@ -328,9 +322,7 @@ export default {
         spinAxis: this.spinAxis,
         spinSpeed,
       };
-      this.xLength += moveX;
-      this.yLength += moveY;
-      chargeIframe.contentWindow.postMessage(this.chargeConfig, this.chargeURL);
+      chargeIframe.contentWindow.postMessage(chargeConfig, this.chargeURL);
     },
     // 表单内容重置
     resetChargeForm() {
@@ -347,9 +339,11 @@ export default {
     // 销毁画布重新渲染模型
     refreshModel() {
       this.resetChargeForm();
-      this.chargeConfig.isRefresh = true;
+      const chargeConfig = {
+        isRefresh: true,
+      };
       const chargeIframe = document.getElementById("chargeIframe");
-      chargeIframe.contentWindow.postMessage(this.chargeConfig, this.chargeURL);
+      chargeIframe.contentWindow.postMessage(chargeConfig, this.chargeURL);
     },
   },
 };
@@ -358,6 +352,7 @@ export default {
 <style lang="scss" scoped>
 .chargeBox {
   position: relative;
+  font-family: PHTM;
 }
 .chargeTop {
   width: 740px;
@@ -387,6 +382,7 @@ export default {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 .el-menu {
   border: none;
@@ -456,19 +452,16 @@ input::-webkit-input-placeholder {
   color: #464646;
 }
 //颜色选择器
-.colorBox {
-  height: 30px;
-  line-height: 30px;
-}
-.el-color-picker {
-  display: block;
+:deep(.el-color-picker--small) {
+  position: relative;
+  top: 3px;
   height: 22px;
-  :deep(.el-color-picker__trigger) {
-    padding: 0;
-    border: none;
+  .el-color-picker__trigger {
     width: 22px;
     height: 22px;
     border-radius: 11px;
+    padding: 0;
+    border: none;
     .el-color-picker__color {
       border: none;
       .el-color-picker__color-inner {
@@ -487,30 +480,32 @@ input::-webkit-input-placeholder {
 }
 //模型旋转xyz下拉选框
 .spinSelect :deep(.el-select) {
-  .el-input {
-    .el-input__inner {
-      width: 64px;
-      height: 30px;
-      padding: 0 5px;
-      border: 1px solid #fff;
-      border-radius: 0;
-      font-family: PHTM;
-      font-size: 18px;
-      line-height: 30px;
-      text-transform: capitalize;
-      letter-spacing: 0px;
-      color: #5f6266;
-      background: #d8d8d8;
-    }
-    .el-input__suffix > .el-input__suffix-inner > .el-select__caret {
-      display: none;
+  .select-trigger {
+    .el-input {
+      .el-input__inner {
+        width: 64px;
+        height: 30px;
+        padding: 0 5px;
+        border: 1px solid #fff;
+        border-radius: 0;
+        font-family: PHTM;
+        font-size: 18px;
+        line-height: 30px;
+        text-transform: capitalize;
+        letter-spacing: 0px;
+        color: #5f6266;
+        background: #d8d8d8;
+      }
+      .el-input__suffix > .el-input__suffix-inner > .el-select__caret {
+        display: none;
+      }
     }
   }
   .el-popper {
-    margin-top: 0;
     width: 64px;
-    margin: 0 !important;
-    .el-scrollbar > .el-scrollbar__wrap > .el-select-dropdown__list {
+    border: none;
+    top: 30px !important;
+    .el-scrollbar .el-select-dropdown__list {
       padding: 0;
       border-bottom: 1px solid #fff;
       .el-select-dropdown__item {
@@ -522,20 +517,12 @@ input::-webkit-input-placeholder {
         font-family: PHTM;
         font-size: 18px;
         line-height: 30px;
-        text-transform: capitalize;
-        letter-spacing: 0px;
-        text-align: center;
         color: #fff;
         background: rgba(0, 0, 0, 0.6);
       }
     }
-  }
-  .el-select-dropdown {
-    margin: 0;
-    border: none;
-    border-radius: 0 !important;
-    .popper__arrow {
-      display: none !important;
+    .el-popper__arrow::before {
+      display: none;
     }
   }
 }

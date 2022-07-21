@@ -4,9 +4,9 @@
       :style="cssParams.boxCard"
       class="box-card"
       :shadow="cssParams.shadow"
-      body-style="padding: 0"
+      :body-style="{ padding: '0px' }"
     >
-      <div class="clearfix cardTitle" :style="cssParams.title">
+      <div class="cardTitle" :style="cssParams.title">
         <span><slot></slot></span>
       </div>
       <div
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-[data-v-766cf184] .item {
+.item {
   display: inline-block;
   width: 285px;
   text-align: left;
@@ -69,19 +69,12 @@ export default {
 .rightItem {
   font-family: "PHTR";
 }
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both;
-}
 .box-card {
   display: inline-block;
-  width: 740px;
+  width: 100%;
   border-radius: 10px;
   border: none;
   color: #131414;
+  box-sizing: border-box;
 }
 </style>

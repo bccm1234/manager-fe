@@ -1,16 +1,12 @@
 <template>
   <div id="1" class="rightModule" v-if="infoObj">
     <div class="moduleTitle">Structure optimization</div>
-    <div class="body br-10">
-      <div class="mb-20">
+    <div class="body br10">
+      <div class="mb20">
         <div class="title">
           There are {{ Object.keys(infoObj).length }} parameters
         </div>
-        <el-radio-group
-          v-model="paramX"
-          style="margin-bottom: 30px"
-          @tab-click="changeParam()"
-        >
+        <el-radio-group v-model="paramX" style="margin-bottom: 30px">
           <el-radio-button
             v-for="item in Object.keys(infoObj).length"
             :key="item"
@@ -46,3 +42,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+:deep(.el-radio-button--small .el-radio-button__inner) {
+  padding: 5px 15px;
+  font-size: 18px;
+}
+</style>

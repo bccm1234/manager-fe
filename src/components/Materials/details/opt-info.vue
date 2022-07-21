@@ -1,6 +1,6 @@
 <template>
   <div class="optParamBox">
-    <div v-if="paramInfo">
+    <div v-if="paramInfo.calsum">
       <card-info
         :params="calParams"
         :cssParams="optCssParams"
@@ -8,10 +8,10 @@
         class="rightModule"
         >Calculation Summary</card-info
       >
-      <div class="item mb-20">
+      <div class="item mb20" style="width: 740px">
         <span class="itemLeft">More Details:</span>
         <span class="itemRight" v-if="paramInfo.calsum.fileurl"
-          ><a :href="paramInfo.calsum.fileurl">{{
+          ><a :href="`http://localhost:3000${paramInfo.calsum.fileurl}`">{{
             paramInfo.calsum.fileurl
           }}</a></span
         >
@@ -22,14 +22,14 @@
       <card-info
         :params="latParams"
         :cssParams="optCssParams"
-        class="mb-20 rightModule"
+        class="mb20 rightModule"
         id="1-2"
         >Lattice(Optimized)</card-info
       >
       <card-info
         :params="symParams"
         :cssParams="optCssParams"
-        class="mb-20 rightModule"
+        class="mb20 rightModule"
         id="1-3"
         >Symmetry</card-info
       >
@@ -112,16 +112,17 @@ export default {
     // 获取数据并处理
     crystalCalInfo() {
       // calculation summary
-      console.log("1");
       const calsum = this.paramInfo.calsum;
-      this.calParams.valueList = [
-        utils.assessData(calsum.func),
-        utils.assessData(calsum.encut),
-        utils.assessData(calsum.kpoint),
-        utils.assessData(calsum.u),
-        utils.assessData(calsum.code),
-        utils.assessData(calsum.magnetic),
-      ];
+      if (calsum) {
+        this.calParams.valueList = [
+          utils.assessData(calsum.func),
+          utils.assessData(calsum.encut),
+          utils.assessData(calsum.kpoint),
+          utils.assessData(calsum.u),
+          utils.assessData(calsum.code),
+          utils.assessData(calsum.magnetic),
+        ];
+      }
       // lattice
       for (let i = 0; i < 3; i++) {
         this.latParams.valueList.push(
@@ -166,15 +167,16 @@ export default {
 .optParamBox {
   position: relative;
   width: 740px;
+  height: 100%;
 }
 .spaBox {
   position: absolute;
   left: 370px;
-  top: 487px;
+  top: 484px;
 }
 .formulaBox {
   position: absolute;
   left: 370px;
-  top: 591px;
+  top: 586px;
 }
 </style>

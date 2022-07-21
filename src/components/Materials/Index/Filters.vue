@@ -221,7 +221,7 @@ export default {
     top: 0px;
     width: 106px;
     height: 24px;
-    font-family: AlibabaPuHuiTiM;
+    font-family: PHTM;
     font-size: 36px;
     font-weight: 500;
     line-height: 24px;
@@ -247,7 +247,7 @@ export default {
       top: 4px;
       width: 63px;
       height: 24px;
-      font-family: AlibabaPuHuiTiR;
+      font-family: PHTR;
       font-size: 24px;
       font-weight: normal;
       line-height: 24px;
@@ -273,7 +273,7 @@ export default {
       top: 4px;
       width: 41px;
       height: 24px;
-      font-family: AlibabaPuHuiTiR;
+      font-family: PHTR;
       font-size: 24px;
       font-weight: normal;
       line-height: 24px;
@@ -305,7 +305,7 @@ export default {
       top: 0px;
       width: 133px;
       height: 24px;
-      font-family: AlibabaPuHuiTiM;
+      font-family: PHTM;
       font-size: 24px;
       font-weight: 500;
       line-height: 24px;
@@ -343,7 +343,7 @@ export default {
   top: 0px;
   width: 290px;
   height: 18px;
-  font-family: AlibabaPuHuiTiR;
+  font-family: PHTR;
   font-size: 18px;
   font-weight: normal;
   line-height: 18px;
