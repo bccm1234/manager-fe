@@ -30,7 +30,10 @@
     <card-info :cssParams="eleCssParams" id="2-4" class="rightModule"
       >charge Density</card-info
     >
-    <charge-canvas :atomList="atomList"></charge-canvas>
+    <charge-canvas
+      :atomList="atomList"
+      :fileUrl="paramInfo.cubeurl"
+    ></charge-canvas>
   </div>
 </template>
 

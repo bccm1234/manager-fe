@@ -196,6 +196,7 @@ export default {
   name: "charge-calucation",
   props: {
     atomList: Array,
+    fileUrl: String,
   },
   data() {
     return {
@@ -222,13 +223,11 @@ export default {
   methods: {
     // 获取页面hash值传给3dmol
     fetchData() {
-      const idNumber = window.location.hash;
-      const hashId = idNumber.substring(25, idNumber.length);
-      this.chargeURL = "http://localhost:3000/html/3dmol/3Dmol.html?" + hashId;
+      this.chargeURL = `http://localhost:3000/html/3dmol/3Dmol.html?${this.fileUrl}`;
       for (let i = 0; i < this.atomList.length; i++) {
         this.colorList.push(colorJson[this.atomList[i]]);
       }
-      this.downLoadUrl = `http://localhost:3000/cube/${hashId}.zip`;
+      this.downLoadUrl = `http://localhost:3000${this.fileUrl}`;
     },
     // 限制positive输入0-1内的四位小数
     checkNumP() {

@@ -34,6 +34,7 @@ export default {
   },
   created() {
     this.fetchData();
+    window.scrollTo(0, 0);
   },
   mounted() {
     // 监听页面滚动事件
@@ -52,10 +53,9 @@ export default {
     async fetchData() {
       const idNumber = window.location.hash;
       const hashId = idNumber.substring(28, idNumber.length);
-      const res = await this.$api.findMaterialsDetails({
+      this.allInfo = await this.$api.findMaterialsDetails({
         id: hashId,
       });
-      this.allInfo = res;
     },
     // 滑动页面相应导航单改变
     scrollColor() {

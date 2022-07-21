@@ -172,11 +172,11 @@ export default {
 .spaBox {
   position: absolute;
   left: 370px;
-  top: 487px;
+  top: 484px;
 }
 .formulaBox {
   position: absolute;
   left: 370px;
-  top: 591px;
+  top: 586px;
 }
 </style>

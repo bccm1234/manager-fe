@@ -125,7 +125,7 @@ export default {
     // 动态拼接下载链接
     dealUrl() {
       // console.log(this.infoObj.id);
-      this.crystalURL = `http://localhost:3000/html/chemdoodle/chemdoodle.html?${this.modelInfo.id}`;
+      this.crystalURL = `http://localhost:3000/html/chemdoodle/chemdoodle.html?${this.modelInfo.cifurl}`;
       this.downLoadUrl = `http://localhost:3000${this.modelInfo.cifurl}`;
     },
     // 设置扩胞侧边栏开关
