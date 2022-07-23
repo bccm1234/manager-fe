@@ -103,7 +103,7 @@ export default {
       window.scrollTo(0, el.offsetTop + 10);
     },
     commitSearch() {
-      this.$store.commit("materials/commitSearch");
+      this.$store.commit("materials/commitSearch", "rough");
     },
   },
 };

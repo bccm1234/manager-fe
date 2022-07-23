@@ -213,7 +213,7 @@ export default {
       this.$refs.filterform.resetFields();
     },
     commitSearch() {
-      this.$store.commit("materials/commitSearch");
+      this.$store.commit("materials/commitSearch", "advanced");
     },
   },
 };

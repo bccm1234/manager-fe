@@ -286,9 +286,23 @@ const materials = {
       const sort = { sort: JSON.stringify(sortParams) };
       state.sort = sort;
     },
-    async commitSearch(state) {
+    async commitSearch(state, rank) {
       let params = { Input: state.Input };
-      params = Object.assign(params, state.InputParams, state.page, state.sort);
+      switch (rank) {
+        case "rough":
+          break;
+        case "advanced":
+          params = Object.assign(params, state.InputParams);
+          break;
+        case "careful":
+          params = Object.assign(
+            params,
+            state.InputParams,
+            state.page,
+            state.sort
+          );
+          break;
+      }
       const { List: List, page: page } = await api.findMaterialsAbstracts(
         params
       );

@@ -100,7 +100,7 @@ export default {
       page.pageSize = this.pageSize;
       page.pageNum = this.currentPage;
       this.$store.commit("materials/changePage", page);
-      this.$store.commit("materials/commitSearch");
+      this.$store.commit("materials/commitSearch", "careful");
     },
     pageSizeChange() {
       this.currentPageChange();
@@ -113,7 +113,7 @@ export default {
         this.sortParams[column.property] = -1;
       }
       this.$store.commit("materials/changeSort", this.sortParams);
-      this.$store.commit("materials/commitSearch");
+      this.$store.commit("materials/commitSearch", "careful");
     },
     detailedinformation(row) {
       this.$router.push({
