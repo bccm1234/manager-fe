@@ -10,7 +10,7 @@
         <el-collapse-item name="model-type">
           <template #title>
             <div>
-              <el-icon :size="30"><Expand /></el-icon>
+              <el-icon :size="16"><Operation /></el-icon>
               <span>Model Type</span>
             </div>
           </template>
@@ -27,7 +27,7 @@
         <el-collapse-item name="symmetry">
           <template #title>
             <div>
-              <el-icon :size="30"><Expand /></el-icon>
+              <el-icon :size="16"><Operation /></el-icon>
               <span>Symmetry</span>
             </div>
           </template>
@@ -57,7 +57,7 @@
         <el-collapse-item name="surface">
           <template #title>
             <div>
-              <el-icon :size="30"><Expand /></el-icon>
+              <el-icon :size="16"><Operation /></el-icon>
               <span>Surface</span>
             </div>
           </template>
@@ -208,10 +208,9 @@ export default {
 ::v-deep(.title) {
   left: 0px;
   top: 0px;
-  width: 330px;
+  width: 280px;
   height: 72px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 20px 10px;
   align-self: stretch;
@@ -230,25 +229,27 @@ export default {
   }
   .Reset {
     position: relative;
-    left: 20px;
+    left: 46px;
     top: 0px;
-    width: 83px;
-    height: 32px;
+    width: 57px;
+    height: 28px;
+    padding: 2px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 4px 16px;
     border-radius: 5px;
     background: #f4f4f5;
     box-sizing: border-box;
     border: 1px solid #c7c9cc;
     span {
-      left: 10px;
-      top: 4px;
+      position: static;
+      left: 5px;
+      top: 2px;
+      height: 24px;
+      font-size: 18px;
       width: 63px;
       height: 24px;
       font-family: PHTR;
-      font-size: 24px;
       font-weight: normal;
       line-height: 24px;
       letter-spacing: 0px;
@@ -256,25 +257,27 @@ export default {
     }
   }
   .Go {
-    left: 93px;
+    position: relative;
+    left: 56px;
+    width: 41px;
+    height: 28px;
+    padding: 2px 5px;
     top: 0px;
-    width: 61px;
-    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 4px 16px;
     border-radius: 5px;
     background: #f4f4f5;
     box-sizing: border-box;
     border: 1px solid #c7c9cc;
     span {
-      left: 10px;
-      top: 4px;
-      width: 41px;
+      position: static;
+      left: 5px;
+      top: 2px;
+      width: 31px;
       height: 24px;
+      font-size: 18px;
       font-family: PHTR;
-      font-size: 24px;
       font-weight: normal;
       line-height: 24px;
       letter-spacing: 0px;
@@ -286,7 +289,7 @@ export default {
   position: static;
   left: 0px;
   top: 0px;
-  width: 330px;
+  width: 280px;
   height: 44px;
   display: flex;
   justify-content: space-between;
@@ -297,11 +300,11 @@ export default {
     i {
       position: relative;
       left: 0px;
-      top: 6px;
+      top: 0px;
     }
     span {
       position: relative;
-      left: 20px;
+      left: 5px;
       top: 0px;
       width: 133px;
       height: 24px;
@@ -319,7 +322,7 @@ export default {
   position: static;
   left: 0px;
   top: 0px;
-  width: 290px;
+  width: 240px;
   height: 40px;
   margin: 0px 20px;
 }
@@ -330,7 +333,7 @@ export default {
   position: static;
   left: 0px;
   top: 0px;
-  width: 290px;
+  width: 240px;
   height: 40px;
   margin: 0 20px;
 }
@@ -341,7 +344,7 @@ export default {
   position: static;
   left: 0px;
   top: 0px;
-  width: 290px;
+  width: 240px;
   height: 18px;
   font-family: PHTR;
   font-size: 18px;

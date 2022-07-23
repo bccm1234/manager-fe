@@ -38,12 +38,12 @@ export default {
   padding-top: 20px;
 }
 .el-container {
-  width: 1300px;
+  width: 1320px;
   margin: 0 auto;
 }
 .el-aside {
   top: 50px;
-  width: 350px;
+  width: 300px;
   display: flex;
   padding: 10px;
   border-radius: 5px;

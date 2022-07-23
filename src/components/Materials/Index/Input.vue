@@ -5,7 +5,6 @@
       v-model="input"
       placeholder="Please input"
       @input="judgeinput"
-      clearable
     >
       <template #prepend>
         <el-button @click="jumpToFilters">Filters</el-button>

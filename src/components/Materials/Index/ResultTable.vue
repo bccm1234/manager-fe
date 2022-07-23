@@ -15,6 +15,12 @@
       border
     >
       <el-table-column label="Id" prop="id" sortable="custom">
+        <template #header="scope">
+          <span class="table-header" v-html="scope.column.label"></span>
+        </template>
+        <template #default="scope">
+          <div class="table-body" v-html="scope.row.id"></div>
+        </template>
       </el-table-column>
       <el-table-column
         v-for="item in selectedColumns"
@@ -25,10 +31,13 @@
         sortable="custom"
       >
         <template #header="scope">
-          <span v-html="scope.column.label"></span>
+          <span class="table-header" v-html="scope.column.label"></span>
         </template>
         <template #default="scope">
-          <div v-html="scope.row[item.prop]"></div>
+          <div
+            class="table-body"
+            v-html="scope.row[item.prop] ? scope.row[item.prop] : 'none'"
+          ></div>
         </template>
       </el-table-column>
     </el-table>
@@ -130,7 +139,7 @@ export default {
     left: 35px;
     top: 10px;
     height: 60px;
-    font-family: PHTB;
+    font-family: PHTM;
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0px;
@@ -161,5 +170,13 @@ export default {
   align-items: center;
   padding: 20px 0px;
   align-self: stretch;
+}
+.table-header {
+  font-family: PHTR;
+  font-size: 16px;
+}
+.table-body {
+  font-family: PHTL;
+  font-size: 14px;
 }
 </style>

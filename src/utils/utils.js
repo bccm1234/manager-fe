@@ -58,7 +58,7 @@ export default {
       let width = 0;
       const html = document.createElement("span");
       html.innerHTML = str;
-      html.style.fontSize = "0.09rem";
+      html.style.fontSize = "16px";
       html.className = "getTextWidth";
       document.querySelector("body").appendChild(html);
       width = document.querySelector(".getTextWidth").offsetWidth;
