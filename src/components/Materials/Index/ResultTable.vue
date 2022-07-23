@@ -82,6 +82,9 @@ export default {
       list.forEach(function (data) {
         resultList.push(data.abs);
       });
+      resultList.forEach(
+        (x) => (x["spaceGroup"] = utils.tranStr(1, x["spaceGroup"]))
+      );
       return resultList;
     },
     total: function () {

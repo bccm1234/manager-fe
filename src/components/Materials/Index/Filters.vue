@@ -49,9 +49,23 @@
           <el-form-item prop="spaceGroup">
             <el-input
               v-model="form.spaceGroup"
-              placeholder="P_4m-3n 代表 <html>P_4m-3n<html>"
+              placeholder="查询规则请查看提示"
               size="large"
-            ></el-input>
+            >
+              <template #append>
+                <el-button @click="dialogVisible = true">Tips</el-button>
+              </template>
+            </el-input>
+            <el-dialog v-model="dialogVisible" title="Tips" width="30%">
+              <div>-表示给该符号后面的一个字符加上上划线</div>
+              <div>_表示给该符号后面的一个字符为下标</div>
+              <div>例: R-3c => R3̅c Pna2_1 => Pna2₁</div>
+              <template #footer>
+                <span class="dialog-footer">
+                  <el-button @click="dialogVisible = false">Esc</el-button>
+                </span>
+              </template>
+            </el-dialog>
           </el-form-item>
         </el-collapse-item>
         <el-collapse-item name="surface">
@@ -156,6 +170,7 @@ export default {
         },
       ],
       activeNames: ["model-type", "symmetry", "surface"],
+      dialogVisible: false,
     };
   },
   watch: {
