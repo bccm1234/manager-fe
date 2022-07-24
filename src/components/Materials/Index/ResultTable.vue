@@ -83,7 +83,10 @@ export default {
         resultList.push(data.abs);
       });
       resultList.forEach(
-        (x) => (x["spaceGroup"] = utils.tranStr(1, x["spaceGroup"]))
+        (x) => (
+          (x["spaceGroup"] = utils.tranStr(1, x["spaceGroup"])),
+          (x["substance"] = utils.tranStr(0, x["substance"]))
+        )
       );
       return resultList;
     },
@@ -179,7 +182,6 @@ export default {
   font-size: 16px;
 }
 .table-body {
-  font-family: PHTL;
   font-size: 14px;
 }
 </style>
