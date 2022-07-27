@@ -4,7 +4,6 @@
       <div class="title">
         <span class="Filters">Filters</span>
         <el-button class="Reset" @click="ResetForm">Reset</el-button>
-        <el-button class="Go" @click="commitSearch">Go!</el-button>
       </div>
       <el-collapse v-model="activeNames">
         <el-collapse-item name="model-type">
@@ -203,17 +202,14 @@ export default {
           }
         }
         this.$store.commit("materials/changeInputParams", formCopy);
+        this.$store.commit("materials/commitSearch", "advanced");
       },
       deep: true,
-      immediate: true,
     },
   },
   methods: {
     ResetForm() {
       this.$refs.filterform.resetFields();
-    },
-    commitSearch() {
-      this.$store.commit("materials/commitSearch", "advanced");
     },
   },
 };
@@ -244,7 +240,7 @@ export default {
   }
   .Reset {
     position: relative;
-    left: 46px;
+    left: 97px;
     top: 0px;
     width: 57px;
     height: 28px;
@@ -264,34 +260,6 @@ export default {
       font-size: 18px;
       width: 63px;
       height: 24px;
-      font-family: PHTR;
-      font-weight: normal;
-      line-height: 24px;
-      letter-spacing: 0px;
-      color: #131414;
-    }
-  }
-  .Go {
-    position: relative;
-    left: 56px;
-    width: 41px;
-    height: 28px;
-    padding: 2px 5px;
-    top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    background: #f4f4f5;
-    box-sizing: border-box;
-    border: 1px solid #c7c9cc;
-    span {
-      position: static;
-      left: 5px;
-      top: 2px;
-      width: 31px;
-      height: 24px;
-      font-size: 18px;
       font-family: PHTR;
       font-weight: normal;
       line-height: 24px;
