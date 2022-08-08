@@ -18,22 +18,22 @@
           数据来源：{{ infoObj[`param${paramX}`].source }}
         </div>
       </div>
-      <opt-info
+      <StructureInfo
         :paramInfo="infoObj[`param${paramX}`]"
         :key="paramX"
         v-if="Object.keys(infoObj).length"
-      ></opt-info>
+      ></StructureInfo>
     </div>
   </div>
 </template>
 
 <script>
-import optInfo from "@/components/materials/details/opt-info.vue";
+import StructureInfo from "@/components/materials/details/Structure/StructureInfo.vue";
 export default {
   name: "Structure",
   props: ["infoObj"],
   components: {
-    optInfo,
+    StructureInfo,
   },
   data() {
     return {

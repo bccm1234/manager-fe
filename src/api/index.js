@@ -3,6 +3,8 @@
  */
 import request from "./../utils/request";
 export default {
+  // 材料数据库
+  // index
   findMaterialsAbstracts(params) {
     return request({
       url: "/materials/findAbstracts",
@@ -10,6 +12,7 @@ export default {
       data: params,
     });
   },
+  // details
   findMaterialsDetails(params) {
     return request({
       url: "/materials/findDetails",
@@ -29,6 +32,13 @@ export default {
       method: "get",
     });
   },
+  getCifData(path) {
+    return request({
+      url: `http://localhost:3000${path}`,
+      method: "get",
+    });
+  },
+  //
   submitDataForm(params) {
     return request({
       url: "/data/submit",

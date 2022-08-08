@@ -50,11 +50,7 @@
               />
             </div>
             <div style="width: 230px">
-              <button
-                class="settingButton"
-                @click="sentToChemIframe()"
-                type="button"
-              >
+              <button class="settingButton" @click="supercell()" type="button">
                 Go!
               </button>
               <button
@@ -72,12 +68,11 @@
         </el-radio-group>
       </div>
       <!-- chemdoodle -->
-      <iframe
-        :src="crystalURL"
-        scrolling="no"
-        class="modelCanvas br10"
-        id="chemIframe"
-      ></iframe>
+      <chemDoodle
+        :cifUrl="modelInfo.cifurl"
+        class="canvas chemdoodle"
+        ref="chemCanvas"
+      ></chemDoodle>
     </div>
     <div class="colorDownload">
       <!-- 原子颜色 -->
@@ -98,9 +93,13 @@
 </template>
 
 <script>
+import chemDoodle from "@/repeat/chemDoodle.vue";
 import colorJson from "@/assets/json/color.json";
 export default {
   name: "abstractModel",
+  components: {
+    chemDoodle,
+  },
   data() {
     return {
       // 默认扩胞侧边栏关闭
@@ -124,7 +123,6 @@ export default {
   methods: {
     // 动态拼接下载链接
     dealUrl() {
-      // console.log(this.infoObj.id);
       this.crystalURL = `http://localhost:3000/html/chemdoodle/chemdoodle.html?${this.modelInfo.cifurl}`;
       this.downLoadUrl = `http://localhost:3000${this.modelInfo.cifurl}`;
     },
@@ -141,8 +139,7 @@ export default {
       }, 340);
     },
     // 发送模型设置框内容到iframe内的html页面
-    sentToChemIframe() {
-      const iFrame1 = document.getElementById("chemIframe");
+    supercell() {
       // 有输入值，传值，没有输入值，传默认值[2,2,2]
       const x = document.getElementById("input1").value
         ? document.getElementById("input1").value - 0
@@ -155,19 +152,17 @@ export default {
         : 2;
       const xyz = [x, y, z];
       // 发送消息到指chemdoodle页面
-      iFrame1.contentWindow.postMessage(xyz, this.crystalURL);
+      this.$refs.chemCanvas.resetting(xyz);
     },
     refreshSupecell() {
       this.$refs.chemForm.reset();
-      const iFrame1 = document.getElementById("chemIframe");
-      iFrame1.contentWindow.postMessage("refresh", this.crystalURL);
+      this.$refs.chemCanvas.crystalPrepare();
+      this.$refs.chemCanvas.resetting([2, 2, 2]);
     },
     // 限制输入框0-5之内
     checkNum(value) {
       let num = "" + value;
-      // console.log(value);
       num = num.replace(/[^0-9]/g, "");
-      // console.log(num);
       if (num === "0") {
         num = 1;
       }
@@ -307,15 +302,8 @@ export default {
   cursor: pointer;
 }
 //chem渲染画布
-.modelCanvas {
-  position: absolute;
-  left: 25px;
-  top: 25px;
-  z-index: 0;
+.chemdoodle {
   width: 420px;
   height: 420px;
-  border: none;
-  background: #ecf5ff;
-  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

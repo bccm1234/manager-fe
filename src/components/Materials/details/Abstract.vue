@@ -2,13 +2,17 @@
   <div class="abstractBox rightModule" id="0" v-if="infoObj">
     <!-- chemdoodle模型渲染框 -->
     <div class="modelBox">
-      <abstract-model :modelInfo="infoObj" :key="infoObj.id"></abstract-model>
+      <Formula :modelInfo="infoObj" :key="infoObj.id"></Formula>
     </div>
     <!-- 右侧内容 -->
     <div class="baseInfo">
       <card-info :params="abstractParams" :cssParams="abstractCssParams"
         >Abstract</card-info
       >
+      <div class="item" style="width: 300px; margin-left: 35px">
+        <span class="itemLeft">Space Group:</span>
+        <span class="itemRight" v-html="spagro"></span>
+      </div>
       <card-info :params="latticeParams" :cssParams="latticeCssParams"
         >lattice(parameter1)</card-info
       >
@@ -18,12 +22,12 @@
 
 <script>
 import utils from "@/utils/utils";
-import abstractModel from "@/components/Materials/details/abstract-model.vue";
-import cardInfo from "@/component/cardInfo.vue";
+import Formula from "@/components/Materials/details/Abstract/Formula.vue";
+import cardInfo from "@/repeat/cardInfo.vue";
 export default {
   name: "details-abstract",
   components: {
-    abstractModel,
+    Formula,
     cardInfo,
   },
   props: {
@@ -32,9 +36,10 @@ export default {
   data() {
     return {
       abstractParams: {
-        nameList: ["ID", "Crystal System", "Space Group"],
+        nameList: ["ID", "Crystal System"],
         valueList: [],
       },
+      spagro: "",
       abstractCssParams: {
         shadow: "none",
         boxCard: {
@@ -82,12 +87,9 @@ export default {
     // 处理abstract信息
     dealAbstractInfo() {
       if (this.infoObj.crysys) {
-        this.abstractParams.nameList = ["ID", "Crystal System", "Space Group"];
-        this.abstractParams.valueList = [
-          this.infoObj.id,
-          this.infoObj.crysys,
-          this.infoObj.spagro,
-        ];
+        this.abstractParams.nameList = ["ID", "Crystal System"];
+        this.abstractParams.valueList = [this.infoObj.id, this.infoObj.crysys];
+        this.spagro = utils.tranStr(1, this.infoObj.spagro);
       } else {
         this.abstractParams.nameList = ["ID", "Miller Indices", "Termination"];
         this.abstractParams.valueList = [

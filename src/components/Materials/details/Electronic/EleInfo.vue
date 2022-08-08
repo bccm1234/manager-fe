@@ -7,12 +7,20 @@
       class="rightModule"
       >Calculation Summary</card-info
     >
-    <div class="item mb20" style="width: 740px">
+    <div class="item mb20" style="width: 370px">
+      <span class="itemLeft">Cube File:</span>
+      <span class="itemRight"
+        ><a :href="`http://localhost:3000${paramInfo.cubeurl}.cube`"
+          >cube</a
+        ></span
+      >
+    </div>
+    <div class="item mb20" style="width: 370px">
       <span class="itemLeft">More Details:</span>
       <span class="itemRight"
-        ><a :href="`http://localhost:3000${paramInfo.calsys.fileurl}`">{{
-          paramInfo.calsys.fileurl
-        }}</a></span
+        ><a :href="`http://localhost:3000${paramInfo.calsys.fileurl}`"
+          >ele.zip</a
+        ></span
       >
     </div>
     <card-info
@@ -22,31 +30,23 @@
       class="rightModule"
       >Band Structure</card-info
     >
-    <band-picture class="mb20" v-if="paramInfo.bandurl"></band-picture>
+    <Band class="mb20 canvas" v-if="paramInfo.bandurl"></Band>
     <card-info :cssParams="eleCssParams" id="2-3" class="rightModule"
       >Density of states</card-info
     >
-    <dos-picture class="mb20" v-if="paramInfo.dosurl"></dos-picture>
-    <card-info :cssParams="eleCssParams" id="2-4" class="rightModule"
-      >charge Density</card-info
-    >
-    <charge-canvas
-      :atomList="atomList"
-      :fileUrl="paramInfo.cubeurl"
-    ></charge-canvas>
+    <Dos class="mb20 canvas" v-if="paramInfo.dosurl"></Dos>
   </div>
 </template>
 
 <script>
 import utils from "@/utils/utils";
-import CardInfo from "@/component/cardInfo.vue";
-import bandPicture from "@/components/materials/details/band-picture.vue";
-import dosPicture from "./dos-picture.vue";
-import chargeCanvas from "./charge-calculation.vue";
+import CardInfo from "@/repeat/cardInfo.vue";
+import Band from "@/components/materials/details/Electronic/Band.vue";
+import Dos from "@/components/materials/details/Electronic/DOs.vue";
 export default {
-  name: "details-band",
+  name: "EleInfo",
   props: { paramInfo: Object, atomList: Array },
-  components: { CardInfo, bandPicture, dosPicture, chargeCanvas },
+  components: { CardInfo, Band, Dos },
   data() {
     return {
       eleParamObj: {},

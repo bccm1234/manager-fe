@@ -11,9 +11,10 @@
       <div class="item mb20" style="width: 740px">
         <span class="itemLeft">More Details:</span>
         <span class="itemRight" v-if="paramInfo.calsum.fileurl"
-          ><a :href="`http://localhost:3000${paramInfo.calsum.fileurl}`">{{
-            paramInfo.calsum.fileurl
-          }}</a></span
+          ><a :href="`http://localhost:3000${paramInfo.calsum.fileurl}`">
+            <!-- {{paramInfo.calsum.fileurl}} -->
+            opt.zip
+          </a></span
         >
         <span class="itemRight" v-if="!paramInfo.calsum.fileurl"
           >Not Found</span
@@ -57,9 +58,9 @@
 
 <script>
 import utils from "@/utils/utils";
-import cardInfo from "@/component/cardInfo.vue";
+import cardInfo from "@/repeat/cardInfo.vue";
 export default {
-  name: "optInfo",
+  name: "StructureInfo",
   props: { paramInfo: Object },
   components: {
     cardInfo,

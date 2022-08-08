@@ -52,7 +52,7 @@
     font-family: "PHTR";
     user-select: text;
   }
-  :deep(canvas) {
+  :deep(.canvas) {
     border-radius: 10px;
     background: #eef5ff;
     box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3);

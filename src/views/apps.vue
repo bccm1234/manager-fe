@@ -6,7 +6,7 @@
         title="logo"
         class="CO2-icon"
       />
-      <div class="title">CO2 数据库</div>
+      <div class="title">CO<sub>2</sub>数据库</div>
     </div>
     <div class="whiteBG breadcrumb">
       <img src="@/assets/images/material/search.svg" class="search-icon" />
@@ -21,6 +21,7 @@
       </div>
     </div>
     <div class="content"><router-view></router-view></div>
+    <div class="footer" id="footer"></div>
   </div>
 </template>
 
@@ -35,5 +36,9 @@ export default {
 .content {
   margin-top: 110px;
   height: 100%;
+}
+.footer {
+  height: 400px;
+  background-color: #003153;
 }
 </style>

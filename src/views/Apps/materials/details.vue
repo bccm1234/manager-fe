@@ -15,14 +15,14 @@
   </div>
 </template>
 <script>
-import leftBox from "@/components/Materials/details/leftBox.vue";
+import LeftBox from "@/components/Materials/details/LeftBox.vue";
 import Abstract from "@/components/Materials/details/Abstract.vue";
 import Structure from "@/components/Materials/details/Structure.vue";
 import Electronic from "@/components/Materials/details/Electronic.vue";
 export default {
   name: "materials-details",
   components: {
-    leftBox,
+    LeftBox,
     Abstract,
     Structure,
     Electronic,
@@ -34,7 +34,6 @@ export default {
   },
   created() {
     this.fetchData();
-    window.scrollTo(0, 0);
   },
   mounted() {
     // 监听页面滚动事件
@@ -45,6 +44,7 @@ export default {
     $route: {
       handler() {
         this.fetchData();
+        window.parent.location.reload();
       },
     },
   },

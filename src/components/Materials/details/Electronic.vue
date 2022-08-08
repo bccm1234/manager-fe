@@ -18,18 +18,18 @@
           数据来源：{{ infoObj[`param${paramX}`].source }}
         </div>
       </div>
-      <ele-info
+      <EleInfo
         :paramInfo="infoObj[`param${paramX}`]"
         :key="paramX"
         v-if="Object.keys(infoObj).length"
         :atomList="atomList.atom"
-      ></ele-info>
+      ></EleInfo>
     </div>
   </div>
 </template>
 
 <script>
-import EleInfo from "./ele-info.vue";
+import EleInfo from "@/components/materials/details/Electronic/EleInfo.vue";
 export default {
   name: "Electronic",
   props: { infoObj: Object, atomList: Object },

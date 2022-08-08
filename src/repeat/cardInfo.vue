@@ -15,7 +15,7 @@
         class="item"
         :style="cssParams.itemBox"
       >
-        <span class="leftItem" :style="cssParams.leftItem">{{
+        <span class="leftItem" :style="{ 'margin-right': cssParams.mr }">{{
           item + (params.separator ? params.separator : ":")
         }}</span
         ><span class="rightItem">{{ params.valueList[index] }}</span>
@@ -45,6 +45,14 @@ export default {
 </script>
 
 <style scoped>
+.box-card {
+  display: inline-block;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  color: #131414;
+  box-sizing: border-box;
+}
 .item {
   display: inline-block;
   width: 285px;
@@ -68,13 +76,5 @@ export default {
 }
 .rightItem {
   font-family: "PHTR";
-}
-.box-card {
-  display: inline-block;
-  width: 100%;
-  border-radius: 10px;
-  border: none;
-  color: #131414;
-  box-sizing: border-box;
 }
 </style>

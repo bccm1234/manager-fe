@@ -4,7 +4,7 @@
     <!-- 元素卡片 -->
     <div class="formulaBox" v-if="infoObj">
       <div class="formulaId">{{ infoObj.id }}</div>
-      <div class="formulaName" v-html="infoObj.substance"></div>
+      <div class="formulaName" v-html="formula"></div>
       <div class="formulaId">{{ infoObj.miller ? infoObj.miller : "" }}</div>
     </div>
     <!-- 左侧导航栏 -->
@@ -44,26 +44,47 @@
         <div class="menuItem" @click="changeColor($event), jump('2-3')">
           Density of states
         </div>
-        <div class="menuItem" @click="changeColor($event), jump('2-4')">
-          charge Density
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import utils from "@/utils/utils";
 export default {
-  name: "details-leftbox",
+  name: "LeftBox",
   props: {
     infoObj: Object,
-    formula: String,
   },
   data() {
-    return {};
+    return {
+      navTop: -20,
+      footerHeight: 3000,
+      lastItemBottm: 0,
+      formula: "",
+    };
+  },
+  created() {
+    this.menuFixed;
+  },
+  watch: {
+    infoObj: {
+      handler: function () {
+        this.formula = utils.tranStr(0, this.infoObj.substance);
+      },
+      deep: true,
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.menuFixed);
+    setTimeout(() => {
+      this.getLastItemBottm();
+    }, 100);
+    window.onresize = () => {
+      this.getLastItemBottm();
+      scrollTo(0, 0);
+    };
+    scrollTo(0, 0);
   },
   methods: {
     // 点击导航栏跳转
@@ -81,13 +102,46 @@ export default {
       event.target.classList.add("activeItem");
     },
     menuFixed() {
+      const windowHeight = window.innerHeight;
+      const footer = document.getElementById("footer").getBoundingClientRect();
       const scrolltop = document.documentElement.scrollTop;
+      const activeItem = document
+        .getElementsByClassName("activeItem")[0]
+        .getBoundingClientRect();
+      const activeBottom = activeItem.bottom;
       const leftBox = document.getElementById("leftBox");
       if (scrolltop > 150) {
         leftBox.className = "leftBox";
+        leftBox.style.top = `${this.navTop}px`;
+        if (activeBottom - windowHeight > 0) {
+          this.navTop -= activeBottom - windowHeight;
+        }
+        if (scrolltop > this.footerHeight) {
+          if (this.lastItemBottm > windowHeight - footer.top + 20) {
+            leftBox.style.top = `-20px`;
+          } else {
+            let h = 0;
+            h =
+              this.navTop +
+              (this.lastItemBottm - (windowHeight - footer.top)) -
+              20;
+            leftBox.style.top = `${h}px`;
+          }
+        }
       } else {
+        this.navTop = -20;
         leftBox.classList.remove("leftBox");
       }
+    },
+    getLastItemBottm() {
+      const windowHeight = window.innerHeight;
+      const items = document.getElementsByClassName("menuItem");
+      const lastItem = items[items.length - 1];
+      this.lastItemBottm =
+        windowHeight - lastItem.getBoundingClientRect().bottom + 150;
+      this.footerHeight =
+        document.getElementById("footer").getBoundingClientRect().top -
+        window.innerHeight;
     },
   },
 };
@@ -96,8 +150,8 @@ export default {
 <style lang="scss" scoped>
 .leftBox {
   position: fixed;
-  top: -20px;
   left: 50%;
+  top: -20px;
   width: 320px;
   height: 100%;
   margin-left: -615px;
